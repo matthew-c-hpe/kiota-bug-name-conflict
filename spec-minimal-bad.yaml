@@ -1,0 +1,48 @@
+# A minimal OpenAPI spec which highlights a potential bug in Kiota client autogeneration
+# This API spec has been verified as valid using the redocly CLI's lint functionality under its default configuration.
+
+openapi: 3.0.3
+
+info:
+  title: Sample Spec
+  description: Description
+  version: 1.0.0
+  license: 
+    name: Foo
+    url: foo
+
+servers:
+  - url: 'https://foo/api/v1'
+    description: A description    
+
+paths:
+
+  /instances:
+    post: 
+      summary: Create an Instance
+      operationId: createInstance
+
+      requestBody: 
+        content: 
+          application/json: 
+            schema: 
+            # Name conflict here between namedInstanceProperty's config property;
+            # Which causes the generation of namedInstanceProperty_configable interface to fail.
+              $ref: ./components/schemas/namedInstancePropertyConfig.yaml
+
+      responses:
+        '200':    # status code
+          description: Successful Request
+          content:
+            application/json:
+              schema: 
+                properties:
+                  instance:
+                  # Name conflict here between namedInstancePropertyConfig schema;
+                  # Which causes the generation of namedInstanceProperty_configable interface to fail.
+                    $ref: ./components/schemas/namedInstanceProperty.yaml
+
+        '400':
+          description: 404 error
+
+security: []

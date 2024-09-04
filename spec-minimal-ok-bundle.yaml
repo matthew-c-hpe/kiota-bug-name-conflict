@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Sample Spec
+  description: Description
+  version: 1.0.0
+  license:
+    name: Foo
+    url: foo
+servers:
+  - url: https://foo/api/v1
+    description: A description
+security: []
+paths:
+  /instances:
+    post:
+      summary: Create an Instance
+      operationId: createInstance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              # No name conflict as the schema has been renamed to end in OKName
+              # Which doesn't conflict with namedInstanceProperty's config property
+              $ref: '#/components/schemas/namedInstancePropertyOKName'
+      responses:
+        '200':
+          description: Successful Request
+          content:
+            application/json:
+              schema:
+                properties:
+                  instance:
+                    $ref: '#/components/schemas/namedInstanceProperty'
+        '400':
+          description: 404 error
+components:
+  schemas:
+    namedInstancePropertyOKName:
+      type: object
+      properties:
+        information:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+              description: Name, a unique identifier for the instance
+              example: Sample Instance
+    namedInstanceProperty:
+      type: object
+      properties:
+        config:
+          type: object
+          properties:
+            name:
+              type: string

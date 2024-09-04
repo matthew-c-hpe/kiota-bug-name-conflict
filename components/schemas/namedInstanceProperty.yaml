@@ -1,0 +1,9 @@
+type: object
+properties:
+  # The conflict is happening because namedInstanceProperty has a property named "config"
+  # For some reason, namedInstancePropertyConfig clashes with namedInstanceProperty when Kiota tries to generate namedInstanceProperty_configable
+  config: 
+    type: object
+    properties:
+      name:
+        type: string
