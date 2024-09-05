@@ -1,0 +1,47 @@
+# A minimal OpenAPI spec which highlights a potential bug in Kiota client autogeneration
+# This API spec has been verified as valid using the redocly CLI's lint functionality under its default configuration.
+
+# spec-minimal-foo shows that the name conflict bug is not limited to the word "Config", but also any other schema name suffix/property clash
+openapi: 3.0.3
+
+info:
+  title: Sample Spec
+  description: Description
+  version: 1.0.0
+  license: 
+    name: Foo
+    url: foo
+
+servers:
+  - url: 'https://foo/api/v1'
+    description: A description    
+
+paths:
+
+  /instances:
+    post: 
+      summary: Create an Instance
+      operationId: createInstance
+
+      requestBody: 
+        content: 
+          application/json: 
+            schema: 
+              # Name conflict, even if the conflicting word is not "Config".
+              # Clashes with foo property of namedInstanceProperty.yaml.
+              $ref: ./components/schemas/namedInstancePropertyFoo.yaml
+
+      responses:
+        '200':    # status code
+          description: Successful Request
+          content:
+            application/json:
+              schema: 
+                properties:
+                  instance:
+                    $ref: ./components/schemas/namedInstanceProperty.yaml
+
+        '400':
+          description: 404 error
+
+security: []

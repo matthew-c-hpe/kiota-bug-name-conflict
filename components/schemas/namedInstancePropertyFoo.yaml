@@ -1,0 +1,11 @@
+type: object
+properties:
+  information:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        description: Name, a unique identifier for the instance
+        example: Sample Instance

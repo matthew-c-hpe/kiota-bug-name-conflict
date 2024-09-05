@@ -7,3 +7,8 @@ properties:
     properties:
       name:
         type: string
+  foo: 
+    type: object
+    properties:
+      name:
+        type: string

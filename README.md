@@ -35,3 +35,10 @@ Note the absence of a `NamedInstanceProperty_configable` interface.
 `````
 # find output-bad/ -type f -exec grep -Ei 'type \w+_configable interface' {} \;
 `````
+
+Note that this behaviour is not limited to the word "Config" and a property named "config". It seems to affect any clashing name/property.
+
+Note the absence of a `NamedInstanceProperty_fooable` interface.
+`````
+# find output-foo -type f -exec grep -REi 'type \w+_fooable interface' {} \;
+`````
